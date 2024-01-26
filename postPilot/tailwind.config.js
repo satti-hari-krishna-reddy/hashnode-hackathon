@@ -7,6 +7,6 @@ export default {
       sans: ['Inter var'],
     },},
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/forms'),],
 }
 
