@@ -6,7 +6,8 @@ import RegisterForm from './registerForm.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-   <RegisterForm/>
+   
+   <Dashboard/>
    
   </React.StrictMode>,
 )
