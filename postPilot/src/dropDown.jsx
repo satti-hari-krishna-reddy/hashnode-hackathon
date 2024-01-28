@@ -21,16 +21,24 @@ const Dropdown = ({ blogTitle }) => {
     };
   }, []);
 
-  const handleShareNow = (platform) => {
-    alert(`Sharing "${blogTitle}" on ${platform} now!`);
-    setIsOpen(false);
+  const handleShareNow = () => {
+    const selectedPlatforms = getSelectedPlatforms();
+    if (selectedPlatforms === '') {
+      alert('Please select at least one platform.');
+    } else {
+      alert(`Sharing "${blogTitle}" on ${selectedPlatforms} now!`);
+      setIsOpen(false);
+    }
   };
 
   const handleSchedule = () => {
-    if (scheduledTime === '') {
+    const selectedPlatforms = getSelectedPlatforms();
+    if (selectedPlatforms === '') {
+      alert('Please select at least one platform.');
+    } else if (scheduledTime === '') {
       alert('Please select a scheduled time.');
     } else {
-      alert(`Scheduling "${blogTitle}" on ${getSelectedPlatforms()} at ${scheduledTime}`);
+      alert(`Scheduling "${blogTitle}" on ${selectedPlatforms} at ${scheduledTime}`);
       setIsOpen(false);
     }
   };
@@ -44,10 +52,7 @@ const Dropdown = ({ blogTitle }) => {
 
   return (
     <div className="relative inline-block text-left">
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="p-2 focus:outline-none"
-      >
+      <button onClick={() => setIsOpen(!isOpen)} className="p-2 focus:outline-none">
         <span className="text-gray-600">...</span>
       </button>
 
@@ -75,10 +80,10 @@ const Dropdown = ({ blogTitle }) => {
             </label>
 
             <button
-              onClick={() => handleShareNow('Now')}
-              className="block w-full text-left py-2 px-4 bg-gray-100 hover:bg-gray-200"
+              onClick={handleShareNow}
+              className="block w-full text-left py-2 px-4 bg-green-500 hover:bg-green-600 text-white rounded-md transition duration-300 ease-in-out flex items-center"
             >
-              Share Now
+              <span className="flex-grow">Share Now</span>
             </button>
 
             <div className="flex items-center space-x-2">
@@ -95,6 +100,7 @@ const Dropdown = ({ blogTitle }) => {
               >
                 Schedule
               </button>
+              
             </div>
           </div>
         </div>
@@ -104,4 +110,3 @@ const Dropdown = ({ blogTitle }) => {
 };
 
 export default Dropdown;
-

@@ -24,6 +24,8 @@ const BlogList = () => {
               <h3 className="text-xl font-semibold mb-2">{blog.title}</h3>
               <p className="text-gray-600">{blog.content}</p>
             </div>
+            <span class="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">undo</span>
+
             <DropDown blogTitle={blog.title} />
           </div>
         ))}
