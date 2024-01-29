@@ -1,12 +1,32 @@
 import './styles/tailwind.css';
-import React from 'react';
-
+import Popup from './popup';
+import React, { useState } from 'react';
 
 const Settings = () => {
+  const [delayedAutoShare, setDelayedAutoShare] = useState(false);
+  const [delayHours, setDelayHours] = useState(1);
+  const [isPopupOpen, setPopupOpen] = useState(false);
+
+  const openPopup = () => {
+    setPopupOpen(true);
+  };
+
+  const closePopup = () => {
+    setPopupOpen(false);
+  }
+
+  const handleDelayedAutoShareChange = () => {
+    setDelayedAutoShare(!delayedAutoShare);
+  };
+
+  const handleDelayHoursChange = (hours) => {
+    setDelayHours(hours);
+  };
+
   return (
-   
+    <div className="flex items-center justify-center h-screen">
       <div className="max-w-md w-full p-6 space-y-4 bg-gray-800 rounded shadow-lg">
-        <div className="space-y-4">
+      <div className="space-y-4">
           <label htmlFor="hashnodeBlog" className="block font-medium text-gray-300">
             Your Hashnode API key:
           </label>
@@ -14,7 +34,7 @@ const Settings = () => {
             type="text"
             id="hashnodeBlog"
             autoComplete="off"
-            className="block w-full rounded-md border-gray-500 py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent bg-gray-700"
+            className="text-white block w-full rounded-md border-gray-500 py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent bg-gray-700"
           />
         </div>
         
@@ -26,7 +46,7 @@ const Settings = () => {
             type="text"
             id="linkedinApiKey"
             autoComplete="off"
-            className="block w-full rounded-md border-gray-500 py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent bg-gray-700"
+            className="text-white block w-full rounded-md border-gray-500 py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent bg-gray-700"
           />
         </div>
 
@@ -38,64 +58,76 @@ const Settings = () => {
             type="text"
             id="twitterApiKey"
             autoComplete="off"
-            className="block w-full rounded-md border-gray-500 py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent bg-gray-700"
+            className="text-white block w-full rounded-md border-gray-500 py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent bg-gray-700"
           />
         </div>
-
+        
+        {/* Replace checkboxes with radio buttons */}
         <div className="space-y-4">
           <fieldset>
             <div className="mt-6 space-y-6">
               <div className="relative flex gap-x-3">
                 <div className="flex h-6 items-center">
                   <input
-                    id="comments"
-                    name="comments"
-                    type="checkbox"
+                    id="autoShare"
+                    name="autoShare"
+                    type="radio"
+                    checked={!delayedAutoShare}
+                    onChange={() => handleDelayedAutoShareChange(false)}
                     className="h-4 w-4 rounded border-gray-500 text-indigo-600 focus:ring-indigo-600"
                   />
                 </div>
                 <div className="text-sm leading-6">
-                  <label htmlFor="comments" className="font-medium text-gray-300">
+                  <label htmlFor="autoShare" className="font-medium text-gray-300">
                     Auto share
                   </label>
                   <p className="text-gray-500">Share your next blog automatically when published</p>
                 </div>
-                
               </div>
               
-            </div>
-            <div className="mt-6 space-y-6">
               <div className="relative flex gap-x-3">
                 <div className="flex h-6 items-center">
                   <input
-                    id="comments"
-                    name="comments"
-                    type="checkbox"
+                    id="delayedAutoShare"
+                    name="autoShare"
+                    type="radio"
+                    checked={delayedAutoShare}
+                    onChange={() => handleDelayedAutoShareChange(true)}
                     className="h-4 w-4 rounded border-gray-500 text-indigo-600 focus:ring-indigo-600"
                   />
                 </div>
                 <div className="text-sm leading-6">
-                  <label htmlFor="comments" className="font-medium text-gray-300">
+                  <label htmlFor="delayedAutoShare" className="font-medium text-gray-300">
                     Delayed auto share
                   </label>
-                  <p className="text-gray-500">Share your next blog automatically but after a delayed time when published</p>
+                  <p className="text-gray-500">Share your next blog automatically after a delayed time when published</p>
+                  {/* Show options for delay hours */}
+                  <select
+                    value={delayHours}
+                    onChange={(e) => handleDelayHoursChange(e.target.value)}
+                    className="block w-full rounded-md border-gray-500 py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent bg-gray-700"
+                  >
+                    {[...Array(24)].map((_, index) => (
+                      <option key={index} value={index + 1}>{`${index + 1} hr`}</option>
+                    ))}
+                  </select>
                 </div>
-                
               </div>
-              
             </div>
           </fieldset>
         </div>
 
-        <div className="flex justify-end">
-          <button className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded mr-2">
-            Cancel
-          </button>
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        {/* Your existing code */}
+
+        <div className="flex justify-center">
+          
+          <button onClick={openPopup} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
             Save
           </button>
+          <Popup isOpen={isPopupOpen} onClose={closePopup} message="Settings Saved !!!" />
         </div>
       </div>
+    </div>
   );
 };
 

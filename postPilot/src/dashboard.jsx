@@ -5,11 +5,11 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
 import BlogList from './blogList'
 import Settings from './settings'
-
+import ScheduledPosts from './scheduledPosts'
 
 const user = {
   name: 'Tom Cook',
-  email: 'tom@example.com',
+ 
   imageUrl:
     'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
 }
@@ -152,13 +152,13 @@ const Dashboard = ()=>{
                 </div>
               </div>
 
-              <Disclosure.Panel className="md:hidden">
+            <Disclosure.Panel className="md:hidden">
                 <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
                   {navigation.map((item) => (
                     <Disclosure.Button
                       key={item.name}
                       as="a"
-                      href={item.href}
+                      onClick={() => setSelectedItem(`${item.name}`)}
                       className={classNames(
                         item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                         'block rounded-md px-3 py-2 text-base font-medium'
