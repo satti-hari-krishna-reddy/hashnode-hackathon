@@ -2,6 +2,7 @@ import './styles/tailwind.css'
 import { Fragment, useEffect ,useState} from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import axios from 'axios';
 
 import BlogList from './blogList'
 import Settings from './settings'
@@ -20,9 +21,9 @@ const navigation = [
   
 ]
 const userNavigation = [
-  { name: 'hari krishna', href: '#' },
+  { name: 'hari krishna' },
   
-  { name: 'Sign out', href: '#' },
+  { name: 'Sign out'},
 ]
 
 function classNames(...classes) {
@@ -32,6 +33,38 @@ function classNames(...classes) {
 const Dashboard = ()=>{
   const [selectedItem, setSelectedItem] = useState('BlogList');
   const [disData,setDisData] = useState('Your Blogs');
+  const[userData,setUserData] = useState({});
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.post('https://gql.hashnode.com', {
+          query: `
+            query Publication {
+              publication(host: "blog.developerdao.com") {
+                author{
+                  name
+                  username
+                  profilePicture
+                }
+                
+              }
+            }
+          `,
+        });
+
+        const fetchedData = response.data.data.publication.author;
+        setUserData(fetchedData);
+        console.log(fetchedData);
+       
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
 
   useEffect(()=>{
     if(selectedItem==='BlogList') setDisData('Your Blogs');
@@ -104,7 +137,7 @@ const Dashboard = ()=>{
                           <Menu.Button className="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                             <span className="absolute -inset-1.5" />
                             <span className="sr-only">Open user menu</span>
-                            <img className="h-8 w-8 rounded-full" src={user.imageUrl} alt="" />
+                            <img className="h-8 w-8 rounded-full" src={userData.profilePicture} alt="" />
                           </Menu.Button>
                         </div>
                         <Transition
@@ -117,17 +150,16 @@ const Dashboard = ()=>{
                           leaveTo="transform opacity-0 scale-95"
                         >
                           <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                            {userNavigation.map((item) => (
-                              <Menu.Item key={item.name}>
+                            {userNavigation.map(() => (
+                              <Menu.Item key={userData.name}>
                                 {({ active }) => (
                                   <a
-                                    href={item.href}
                                     className={classNames(
                                       active ? 'bg-gray-100' : '',
                                       'block px-4 py-2 text-sm text-gray-700'
                                     )}
                                   >
-                                    {item.name}
+                                    {userData.username}
                                   </a>
                                 )}
                               </Menu.Item>
@@ -172,11 +204,11 @@ const Dashboard = ()=>{
                 <div className="border-t border-gray-700 pb-3 pt-4">
                   <div className="flex items-center px-5">
                     <div className="flex-shrink-0">
-                      <img className="h-10 w-10 rounded-full" src={user.imageUrl} alt="" />
+                      <img className="h-10 w-10 rounded-full" src={userData.profilePicture} alt="" />
                     </div>
                     <div className="ml-3">
-                      <div className="text-base font-medium leading-none text-white">{user.name}</div>
-                      <div className="text-sm font-medium leading-none text-gray-400">{user.email}</div>
+                      <div className="text-base font-medium leading-none text-white">{userData.name}</div>
+
                     </div>
                     <button
                       type="button"
@@ -190,12 +222,11 @@ const Dashboard = ()=>{
                   <div className="mt-3 space-y-1 px-2">
                     {userNavigation.map((item) => (
                       <Disclosure.Button
-                        key={item.name}
+                        key={userData.name}
                         as="a"
-                        href={item.href}
                         className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
                       >
-                        {item.name}
+                        {userData.username}
                       </Disclosure.Button>
                     ))}
                   </div>
