@@ -1,10 +1,11 @@
 import './styles/tailwind.css'
-import { Fragment } from 'react'
+import { Fragment, useEffect ,useState} from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
 import BlogList from './blogList'
-import RegistrationForm from './registerForm'
+import Settings from './settings'
+
 
 const user = {
   name: 'Tom Cook',
@@ -13,9 +14,9 @@ const user = {
     'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
 }
 const navigation = [
-  { name: 'Dashboard', href: '#', current: true },
-  { name: 'Shceduled Posts', href: '#', current: false },
-  { name: 'Settings', href: '#', current: false },
+  { name: 'BlogList', current: true },
+  { name: 'ScheduledPosts', current: false },
+  { name: 'Settings',current: false },
   
 ]
 const userNavigation = [
@@ -29,16 +30,31 @@ function classNames(...classes) {
 }
 
 const Dashboard = ()=>{
+  const [selectedItem, setSelectedItem] = useState('BlogList');
+  const [disData,setDisData] = useState('Your Blogs');
+
+  useEffect(()=>{
+    if(selectedItem==='BlogList') setDisData('Your Blogs');
+    else if(selectedItem==='ScheduledPosts') setDisData('Scheduled Posts');
+    else if(selectedItem==='Settings') setDisData('Settings');
+    else setDisData('');
+  },[selectedItem]);
+
+  const renderComponent = () => {
+    switch (selectedItem) {
+      case 'Bloglist':
+        return <BlogList/>;
+      case 'ScheduledPosts':
+        return <ScheduledPosts />;
+      case 'Settings':
+        return <Settings />;
+      default:
+        return <BlogList/>;
+    }
+  };
   return (
     <>
-      {/*
-        This example requires updating your template:
-
-        ```
-        <html class="h-full bg-gray-100">
-        <body class="h-full">
-        ```
-      */}
+     
       <div className="min-h-full">
         <Disclosure as="nav" className="bg-gray-800">
           {({ open }) => (
@@ -58,7 +74,7 @@ const Dashboard = ()=>{
                         {navigation.map((item) => (
                           <a
                             key={item.name}
-                            href={item.href}
+                            onClick={() => setSelectedItem(`${item.name}`)}
                             className={classNames(
                               item.current
                                 ? 'bg-gray-900 text-white'
@@ -191,11 +207,11 @@ const Dashboard = ()=>{
 
         <header className="bg-white shadow">
           <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-            <h1 className="text-3xl font-bold tracking-tight text-gray-900">Your Blogs</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-gray-900">{disData}</h1>
           </div>
         </header>
         <main>
-          <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8"><BlogList/></div>
+          <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">{renderComponent()}</div>
         </main>
       </div>
     </>
