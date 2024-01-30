@@ -1,33 +1,23 @@
-const axios = require('axios');
+const express = require('express');
+const fs = require('fs');
+const bodyParser = require('body-parser');
 
-const fetchData = async () => {
-  const url = ' https://gql.hashnode.com';
-  const query = `
-    query Publication {
-      publication(host: "blog.developerdao.com") {
-        posts(first: 0) {
-          edges {
-            node {
-              title
-              brief
-              url
-              id
-            }
-          }
-        }
-      }
-    }
-  `;
+const app = express();
+const PORT = 3000;
 
-  try {
-    const response = await axios.post(url, { query });
+app.post('/save-blog', (req, res) => {
+  const newBlog = req.body;
 
-    // Handle the response data here
-    console.log(response.data.data.publication.posts.edges);
-  } catch (error) {
-    // Handle errors
-    console.error('Error fetching data:', error);
-  }
-};
+  // Read existing data from db.json
+  const rawData = fs.readFileSync('db.json');
+  const data = JSON.parse(rawData);
 
-fetchData();
+  // Append the new blog to scheduledBlogs array
+  data.scheduledBlogs.push(newBlog);
+
+  // Save updated data back to db.json
+  const updatedData = JSON.stringify(data, null, 2);
+  fs.writeFileSync('db.json', updatedData);
+
+  res.json({ message: 'Blog saved successfully', blog: newBlog });
+});

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-const Dropdown = ({ blogTitle }) => {
+const Dropdown = ({ blog }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [twitterChecked, setTwitterChecked] = useState(false);
   const [linkedinChecked, setLinkedinChecked] = useState(false);
@@ -26,7 +26,7 @@ const Dropdown = ({ blogTitle }) => {
     if (selectedPlatforms === '') {
       alert('Please select at least one platform.');
     } else {
-      alert(`Sharing "${blogTitle}" on ${selectedPlatforms} now!`);
+      alert(`Sharing "${blog.title}" on ${selectedPlatforms} now!`);
       setIsOpen(false);
     }
   };
@@ -38,7 +38,8 @@ const Dropdown = ({ blogTitle }) => {
     } else if (scheduledTime === '') {
       alert('Please select a scheduled time.');
     } else {
-      alert(`Scheduling "${blogTitle}" on ${selectedPlatforms} at ${scheduledTime}`);
+      alert(`Scheduling "${blog.title}" on ${selectedPlatforms} at ${scheduledTime}`);
+      
       setIsOpen(false);
     }
   };
