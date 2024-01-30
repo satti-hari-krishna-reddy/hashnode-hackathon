@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import axios from 'axios';
 
 const Dropdown = ({ blog }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,25 +22,29 @@ const Dropdown = ({ blog }) => {
     };
   }, []);
 
-  const handleShareNow = () => {
+  const handleShareNow = async () => {
     const selectedPlatforms = getSelectedPlatforms();
     if (selectedPlatforms === '') {
       alert('Please select at least one platform.');
     } else {
+    
+
       alert(`Sharing "${blog.title}" on ${selectedPlatforms} now!`);
       setIsOpen(false);
     }
   };
 
-  const handleSchedule = () => {
+  const handleSchedule = async () => {
     const selectedPlatforms = getSelectedPlatforms();
     if (selectedPlatforms === '') {
       alert('Please select at least one platform.');
     } else if (scheduledTime === '') {
       alert('Please select a scheduled time.');
     } else {
+      // Make API call to save blog data
+      await saveBlogData({ blog, selectedPlatforms, scheduledTime });
+
       alert(`Scheduling "${blog.title}" on ${selectedPlatforms} at ${scheduledTime}`);
-      
       setIsOpen(false);
     }
   };
@@ -50,6 +55,21 @@ const Dropdown = ({ blog }) => {
     if (linkedinChecked) platforms.push('LinkedIn');
     return platforms.join(', ');
   };
+
+  const saveBlogData = async ({ blog, selectedPlatforms, scheduledTime }) => {
+    try {
+      const response = await axios.post('https://automatic-cod-pjrgv5v566x4c9pgp-3000.app.github.dev/save-blog', {
+        blog,
+        selectedPlatforms,
+        scheduledTime,
+      });
+
+      console.log(response.data); // Log the response from the backend
+    } catch (error) {
+      console.error('Error saving blog data:', error.message);
+    }
+  };
+
 
   return (
     <div className="relative inline-block text-left">
@@ -111,3 +131,5 @@ const Dropdown = ({ blog }) => {
 };
 
 export default Dropdown;
+
+ 
