@@ -8,7 +8,7 @@ import BlogList from './blogList.jsx'
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
    
-   <Dashboard/>
+   <App/>
    
   </React.StrictMode>,
 )

@@ -13,25 +13,25 @@ const features = [
   {
     name: 'schedule your post sharing',
     description:
-      'Morbi viverra dui mi arcu sed. Tellus semper adipiscing suspendisse semper morbi. Odio urna massa nunc massa.',
+      'share your post at your scheduled time.',
     icon: CloudArrowUpIcon,
   },
   {
-    name: 'supports custom message template',
+    name: 'Automated post sharing',
     description:
-      'Sit quis amet rutrum tellus ullamcorper ultricies libero dolor eget. Sem sodales gravida quam turpis enim lacus amet.',
+      'your post will be shared automatically when you publish a post , we use Hashnode built in webhooks',
     icon: LockClosedIcon,
   },
   {
-    name: 'multiple sharing',
+    name: 'share to multiple platforms',
     description:
-      'Quisque est vel vulputate cursus. Risus proin diam nunc commodo. Lobortis auctor congue commodo diam neque.',
+      'share your blog to mutliple social media platforms with just a single click.',
     icon: ArrowPathIcon,
   },
   {
     name: 'custom tweet with chatGpt',
     description:
-      'Arcu egestas dolor vel iaculis in ipsum mauris. Tincidunt mattis aliquet hac quis. Id hac maecenas ac donec pharetra eget.',
+      'postPilot uses Chatgpt to automatically generate a unique message for every post you share .',
     icon: FingerPrintIcon,
   },
 ]
@@ -187,7 +187,7 @@ const App = ()=> {
         </div>
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-base font-semibold leading-7 text-blue-300">Deploy faster</h2>
+          <h2 className="text-base font-semibold leading-7 text-blue-300">Share seamlessly and faster</h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
             Everything you need to automate sharing your post
           </p>
