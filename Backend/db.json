@@ -7,36 +7,20 @@
   },
   "scheduledBlogs": [
     {
-      "title": "Running an Arweave Gateway on Fly.io",
-      "brief": "Last week, I wrote about running an Arweave gateway on GitHub Codespaces for development, but this was just an exercise to get to know AR.IO's gateway node.\nCodespaces are short-lived cloud instances that start when we open VSCode in the browser. Nic...",
-      "url": "https://blog.developerdao.com/running-an-arweave-gateway-on-flyio",
-      "id": "64ee23c3450f97ad03ab3ae4",
-      "selectedPlatforms": "Twitter",
-      "scheduledTime": "21:48"
-    },
-    {
-      "title": "Crafting Beautiful Light Art with Figma and Midjourney",
-      "brief": "One of the most overlooked features of Midjourney is the ability to include images in your /imagine prompt. This gives you the power to influence a prompt's basic visual structure. The more details this image has, the more it will influence your resu...",
-      "url": "https://blog.developerdao.com/crafting-beautiful-light-art-with-figma-and-midjourney",
-      "id": "65ae2f5dd03d0ce559281cd3",
+      "title": "NEAR Chain Abstraction Explained",
+      "brief": "Web3 gives users more control over their data and payments. Still, we pay for these benefits with increased technical and UX complexity. In recent years, blockchain ecosystems have tried to improve onboarding to get a hold of the UX part, but as many...",
+      "url": "https://blog.developerdao.com/near-chain-abstraction-explained",
+      "id": "65aa3add436d4d103a909eb8",
       "selectedPlatforms": "LinkedIn",
-      "scheduledTime": "18:50"
+      "scheduledTime": "00:34"
     },
     {
-      "title": "Running an Arweave Gateway on Fly.io",
-      "brief": "Last week, I wrote about running an Arweave gateway on GitHub Codespaces for development, but this was just an exercise to get to know AR.IO's gateway node.\nCodespaces are short-lived cloud instances that start when we open VSCode in the browser. Nic...",
-      "url": "https://blog.developerdao.com/running-an-arweave-gateway-on-flyio",
-      "id": "64ee23c3450f97ad03ab3ae4",
-      "selectedPlatforms": "Twitter",
-      "scheduledTime": "21:48"
-    },
-    {
-      "title": "Unleash the Power of DeFi on Bitcoin",
-      "brief": "If you've been building on Ethereum and EVM-compatible chains and yet are intrigued by the potential of Bitcoin, this post is for you. We will talk about Stacks, a Bitcoin layer 2, and how it will unlock $500B+ of Bitcoin liquidity for everyday apps....",
-      "url": "https://blog.developerdao.com/unleash-the-power-of-defi-on-bitcoin",
-      "id": "656f4451337a4be9a9f9d0ac",
-      "selectedPlatforms": "Twitter, LinkedIn",
-      "scheduledTime": "21:03"
+      "title": "NEAR Chain Abstraction Explained",
+      "brief": "Web3 gives users more control over their data and payments. Still, we pay for these benefits with increased technical and UX complexity. In recent years, blockchain ecosystems have tried to improve onboarding to get a hold of the UX part, but as many...",
+      "url": "https://blog.developerdao.com/near-chain-abstraction-explained",
+      "id": "65aa3add436d4d103a909eb8",
+      "selectedPlatforms": "LinkedIn",
+      "scheduledTime": "00:34"
     }
   ],
   "otherData": []

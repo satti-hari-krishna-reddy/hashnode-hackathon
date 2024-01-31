@@ -14,11 +14,6 @@ const navigation = [
   { name: 'Settings',current: false },
   
 ]
-const userNavigation = [
-  { name: 'hari krishna' },
-  
-  { name: 'Sign out'},
-]
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -28,6 +23,12 @@ const Dashboard = ()=>{
   const [selectedItem, setSelectedItem] = useState('BlogList');
   const [disData,setDisData] = useState('Your Blogs');
   const[userData,setUserData] = useState({});
+  const userNavigation = [
+    { name: userData.name },
+    
+    { name: 'Sign out'},
+  ]
+  
   
   useEffect(() => {
     const fetchData = async () => {
@@ -144,8 +145,8 @@ const Dashboard = ()=>{
                           leaveTo="transform opacity-0 scale-95"
                         >
                           <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                            {userNavigation.map(() => (
-                              <Menu.Item key={userData.name}>
+                            {userNavigation.map((data) => (
+                              <Menu.Item key={data.name}>
                                 {({ active }) => (
                                   <a
                                     className={classNames(
@@ -153,7 +154,7 @@ const Dashboard = ()=>{
                                       'block px-4 py-2 text-sm text-gray-700'
                                     )}
                                   >
-                                    {userData.username}
+                                    {data.name}
                                   </a>
                                 )}
                               </Menu.Item>
@@ -201,7 +202,7 @@ const Dashboard = ()=>{
                       <img className="h-10 w-10 rounded-full" src={userData.profilePicture} alt="" />
                     </div>
                     <div className="ml-3">
-                      <div className="text-base font-medium leading-none text-white">{userData.name}</div>
+                      <div className="text-base font-medium leading-none text-white">{userData.username}</div>
 
                     </div>
                     <button
@@ -215,11 +216,11 @@ const Dashboard = ()=>{
                   <div className="mt-3 space-y-1 px-2">
                     {userNavigation.map((item) => (
                       <Disclosure.Button
-                        key={userData.name}
+                        key={item.name}
                         as="a"
                         className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
                       >
-                        {userData.username}
+                        {item.name}
                       </Disclosure.Button>
                     ))}
                   </div>

@@ -44,6 +44,14 @@ app.post('/save-blog', (req, res) => {
   res.json({ message: 'Blog saved successfully', blog: newBlog });
 });
 
+app.post('/remove-blog', (req, res) => {
+  const { id } = req.body;
+  data.scheduledBlogs = data.scheduledBlogs.filter(blog => blog.id !== id);
+  saveData();
+  res.json({ message: 'Blog removed successfully', id });
+});
+
+
 // Function to save the updated data back to db.json
 function saveData() {
   const updatedData = JSON.stringify(data, null, 2);

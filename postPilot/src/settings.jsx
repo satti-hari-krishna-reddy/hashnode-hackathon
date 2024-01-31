@@ -50,19 +50,64 @@ const Settings = () => {
           />
         </div>
 
-        <div className="space-y-4">
-          <label htmlFor="twitterApiKey" className="block font-medium text-gray-300">
-            Twitter API Key:
-          </label>
-          <input
-            type="text"
-            id="twitterApiKey"
-            autoComplete="off"
-            className="text-white block w-full rounded-md border-gray-500 py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent bg-gray-700"
-          />
-        </div>
+       
+  <div className="flex space-x-4">
+
+  <div className="space-y-4 flex-shrink">
+    <label htmlFor="twitterApiKey" className="block font-medium text-gray-300">
+      Twitter API Key:
+    </label>
+    <input
+      type="text"
+      id="twitterApiKey"
+      autoComplete="off"
+      className="text-white block w-full rounded-md border-gray-500 py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent bg-gray-700"
+    />
+  </div>
+
+ 
+  <div className="space-y-4 flex-shrink">
+    <label htmlFor="newApiKey" className="block font-medium text-gray-300">
+      New API Key:
+    </label>
+    <input
+      type="text"
+      id="newApiKey"
+      autoComplete="off"
+      className="text-white block w-full rounded-md border-gray-500 py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent bg-gray-700"
+    />
+  </div>
+</div>
+<div className="flex space-x-4">
+
+<div className="space-y-4 flex-shrink">
+  <label htmlFor="twitterApiKey" className="block font-medium text-gray-300">
+    Twitter API Key:
+  </label>
+  <input
+    type="text"
+    id="twitterApiKey"
+    autoComplete="off"
+    className="text-white block w-full rounded-md border-gray-500 py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent bg-gray-700"
+  />
+</div>
+
+
+<div className="space-y-4 flex-shrink">
+  <label htmlFor="newApiKey" className="block font-medium text-gray-300">
+    New API Key:
+  </label>
+  <input
+    type="text"
+    id="newApiKey"
+    autoComplete="off"
+    className="text-white block w-full rounded-md border-gray-500 py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent bg-gray-700"
+  />
+</div>
+</div>
+
+
         
-        {/* Replace checkboxes with radio buttons */}
         <div className="space-y-4">
           <fieldset>
             <div className="mt-6 space-y-6">
