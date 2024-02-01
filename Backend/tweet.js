@@ -9,10 +9,10 @@ const client = new TwitterApi({
 });
 
 
-const tweet = async () => {
+const tweet = async (text) => {
     try {
         const response = await client.v2.tweet({
-            text: 'testing it again2',
+            text: text,
         });
         console.log('Tweet successful:', response.data);
     } catch (error) {
@@ -20,4 +20,5 @@ const tweet = async () => {
     }
 };
 
-tweet();
+module.exports = tweet;
+

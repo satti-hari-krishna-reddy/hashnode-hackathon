@@ -2,35 +2,33 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const fs = require('fs');
+const { getPublicationId } = require('./getPublicationid');
+const { getPostById } = require('./getPostid');
+const { createWebhook } = require('./webhookCreater');
+const {getOpenAICompletion} = require('./chatGpt')
+const {tweet} = require('./tweet')
 
+
+const publicationId = await getPublicationId();
+
+console.log('Publication ID:', publicationId);
+
+await createWebhook();
 const app = express();
 const PORT = 3000;
 app.use(cors());
 app.use(bodyParser.json());
 
-// Your existing data structure
-let data = {
-  apiKeys: {
-    hashnode: "your_hashnode_api_key",
-    secret: "your_secret_key",
-    twitter: "your_twitter_key",
-    linkedin: "your_linkedin_key",
-  },
-  scheduledBlogs: [],
-  otherData: [],
-};
 
-// Your existing route to handle fetching data
 app.post('/fetch-blogs', (req, res) => {
   const scheduledBlogs = data.scheduledBlogs;
   res.json(scheduledBlogs);
 });
 
-// Updated route to handle saving blogs with additional info
+
 app.post('/save-blog', (req, res) => {
   const { blog, selectedPlatforms, scheduledTime } = req.body;
 
-  // Add the new blog with additional info to the scheduledBlogs array
   const newBlog = {
     ...blog,
     selectedPlatforms,
@@ -38,21 +36,29 @@ app.post('/save-blog', (req, res) => {
   };
   data.scheduledBlogs.push(newBlog);
 
-  // Save updated data back to db.json
+
   saveData();
 
   res.json({ message: 'Blog saved successfully', blog: newBlog });
 });
 
-app.post('/remove-blog', (req, res) => {
-  const { id } = req.body;
-  data.scheduledBlogs = data.scheduledBlogs.filter(blog => blog.id !== id);
-  saveData();
-  res.json({ message: 'Blog removed successfully', id });
+app.post('/webhook-endpoint', async (req, res) => {
+  try {
+   
+    const webhookId = req.body.data.createWebhook.webhook.id;
+    const data = await getPostById(webhookId);
+    const message = await getOpenAICompletion(data);
+    tweet(message);
+
+    res.status(200).send('Webhook ID received successfully.');
+  } catch (error) {
+    console.error('Error processing webhook:', error);
+    res.status(500).send('Internal Server Error');
+  }
 });
 
 
-// Function to save the updated data back to db.json
+
 function saveData() {
   const updatedData = JSON.stringify(data, null, 2);
   fs.writeFileSync('db.json', updatedData);
